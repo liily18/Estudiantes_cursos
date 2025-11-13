@@ -1,0 +1,46 @@
+<!-- flask_app/templates/cursos.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cursos</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .contenedor { display: flex; gap: 50px; }
+        table { border-collapse: collapse; width: 300px; }
+        th, td { border: 1px solid #999; padding: 5px 8px; text-align: left; }
+        h1 { margin-bottom: 10px; }
+        a { text-decoration: none; color: blue; }
+    </style>
+</head>
+<body>
+    <h1>Cursos</h1>
+    <div class="contenedor">
+        <!-- Formulario para crear nuevo curso -->
+        <div>
+            <h2>Nuevo Curso</h2>
+            <form action="/cursos/crear" method="POST">
+                <label>Nombre:</label><br>
+                <input type="text" name="nombre"><br><br>
+                <input type="submit" value="Crear Curso">
+            </form>
+        </div>
+
+        <!-- Lista de todos los cursos -->
+        <div>
+            <h2>Todos los Cursos</h2>
+            <ul>
+                {% for curso in lista_cursos %}
+                    <li>
+                        <a href="/cursos/{{ curso.id }}">{{ curso.nombre }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <p>
+                <a href="/estudiante/nuevo">Agregar Estudiante</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

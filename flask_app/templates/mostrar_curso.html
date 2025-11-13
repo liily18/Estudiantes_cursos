@@ -1,0 +1,35 @@
+<!-- flask_app/templates/mostrar_curso.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mostrar Curso</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        table { border-collapse: collapse; width: 400px; }
+        th, td { border: 1px solid #999; padding: 5px 8px; text-align: left; }
+        h1 { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Estudiantes de {{ curso.nombre }}</h1>
+
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Edad</th>
+        </tr>
+        {% for est in lista_estudiantes %}
+        <tr>
+            <td>{{ est.nombre }}</td>
+            <td>{{ est.apellido }}</td>
+            <td>{{ est.edad }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="/cursos">Inicio</a>
+</body>
+</html>

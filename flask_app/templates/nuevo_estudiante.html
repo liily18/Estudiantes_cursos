@@ -1,0 +1,40 @@
+<!-- flask_app/templates/nuevo_estudiante.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo Estudiante</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        label { display: block; margin-top: 8px; }
+    </style>
+</head>
+<body>
+    <h1>Nuevo Estudiante</h1>
+
+    <form action="/estudiante/crear" method="POST">
+        <!-- Menú desplegable con cursos -->
+        <label>Curso:</label>
+        <select name="curso_id">
+            {% for curso in lista_cursos %}
+                <option value="{{ curso.id }}">{{ curso.nombre }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Nombre:</label>
+        <input type="text" name="nombre">
+
+        <label>Apellido:</label>
+        <input type="text" name="apellido">
+
+        <label>Edad:</label>
+        <input type="number" name="edad">
+
+        <br><br>
+        <input type="submit" value="Crear">
+    </form>
+
+    <br>
+    <a href="/cursos">Inicio</a>
+</body>
+</html>
