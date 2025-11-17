@@ -1,5 +1,4 @@
-# flask_app/controllers/controlador_cursos.py
-# Aquí ponemos las rutas relacionadas con los cursos
+# Aca ponemos las rutas relacionadas con CURSOS
 
 from flask import render_template, request, redirect
 from flask_app import app
@@ -8,34 +7,41 @@ from flask_app.models.estudiante import Estudiante
 
 @app.route("/")
 def inicio():
-    # Redirigimos a la página de cursos
+    #mandamos al usuario a la página de cursos
     return redirect("/cursos")
 
+
+# ruta para ver la página principal de cursos
 @app.route("/cursos")
 def pagina_cursos():
-    # 1) Pedimos todos los cursos al modelo
+    # pedimos al modelo todos los cursos de la base de datos
     cursos = Curso.obtener_todos()
-    # 2) Enviamos la lista de cursos al template
+    # enviamos la lista de cursos al template cursos.html
     return render_template("cursos.html", lista_cursos=cursos)
 
+
+# ruta para crear un nuevo curso
 @app.route("/cursos/crear", methods=["POST"])
 def crear_curso():
-    # 1) Tomamos los datos del formulario
+    # armamos el diccionario con los datos enviados desde el formulario
     datos = {
         "nombre": request.form["nombre"]
     }
-    # 2) Mandamos al modelo para que inserte
+    # llamamos al modelo para guardar el curso
     Curso.crear(datos)
-    # 3) Volvemos a la página de cursos
+    #redirigimos de vuelta a la página de cursos para ver la lista actualizada
     return redirect("/cursos")
 
+
+#ruta para mostrar un curso especifico y sus estudiantes
 @app.route("/cursos/<int:id_curso>")
+
 def mostrar_curso(id_curso):
-    # 1) Obtenemos la info del curso
+    # obtenemos la información de ese curso por id
     curso = Curso.obtener_por_id(id_curso)
-    # 2) Obtenemos estudiantes que pertenecen a ese curso
+    #obtenemos todos los estudiantes que pertenecen a ese curso
     estudiantes = Estudiante.obtener_por_curso(id_curso)
-    # 3) Enviamos todo al template
+    # mandamos ambos al template mostrar_curso.html
     return render_template(
         "mostrar_curso.html",
         curso=curso,

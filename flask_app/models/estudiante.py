@@ -1,9 +1,8 @@
-# flask_app/models/estudiante.py
-# Modelo Estudiante: trabaja con la tabla estudiantes
+# modelo Estudiante: trabaja con la tabla estudiantes
 
 from flask_app.config.mysqlconnection import conectar_mysql
 
-NOMBRE_BD = "esquema_estudiantes_cursos"
+BD = "esquema_estudiantes_cursos"
 
 class Estudiante:
     def __init__(self, datos):
@@ -17,19 +16,16 @@ class Estudiante:
 
     @classmethod
     def crear(cls, datos):
-        # Crea un nuevo estudiante
-        consulta = """
-            INSERT INTO estudiantes (nombre, apellido, edad, created_at, updated_at, curso_id)
-            VALUES (%(nombre)s, %(apellido)s, %(edad)s, NOW(), NOW(), %(curso_id)s);
-        """
-        return conectar_mysql(NOMBRE_BD).consulta(consulta, datos)
+        # crear un nuevo estudiante
+        consulta = "INSERT INTO estudiantes (nombre, apellido, edad, created_at, updated_at, curso_id)VALUES (%(nombre)s, %(apellido)s, %(edad)s, NOW(), NOW(), %(curso_id)s);"
+        return conectar_mysql(BD).consulta(consulta, datos)
 
     @classmethod
     def obtener_por_curso(cls, curso_id):
-        # Trae todos los estudiantes de un curso
+        # traer todos los estudiantes de un curso
         consulta = "SELECT * FROM estudiantes WHERE curso_id = %(curso_id)s;"
         datos = {"curso_id": curso_id}
-        resultados = conectar_mysql(NOMBRE_BD).consulta(consulta, datos)
+        resultados = conectar_mysql(BD).consulta(consulta, datos)
         estudiantes = []
         for fila in resultados:
             estudiantes.append(cls(fila))
